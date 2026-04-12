@@ -1,0 +1,22 @@
+
+from huggingface_hub import login,HfApi,create_repo
+from huggingface_hub_utils import RepositoryNotFoundError,HfHubHTTPError
+import os
+import requests
+
+repo_id = "Lokeshnathy/Stock-Market-News-Data"              
+repo_type = "dataset"
+
+api=HfApi(token=os.getenv("hf-api-key"))
+
+try:
+    api.repo_info(repo_id=repo_id, repo_type=repo_type)
+    print(f"Space '{repo_id}' already exists. Using it.")
+except RepositoryNotFoundError:
+    print(f"Space '{repo_id}' not found. Creating new space...")
+    create_repo(repo_id=repo_id,repo_type=repo_type,private=False)
+    print(f"Space '{repo_id}' created.")
+api.upload_folder(
+    folder_path="/PGP-AIML/Projects/Stocknews_project/data",
+    repo_id=repo_id,
+    repo_type=repo_type)
