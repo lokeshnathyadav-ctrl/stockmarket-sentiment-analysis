@@ -19,15 +19,8 @@ transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 embedding_matrix = transformer_model.encode(df['News'],device=device,show_progress_bar=False)
 
-df.join(embedding_matrix,how='right')
-
-df.drop(['Date','News'],axis=1,inplace=True)
-
-dependent_variable = 'Label'
-independent_variables= df.columns
-
-X = df[independent_variables]
-y = df[dependent_variable]
+X = embedding_matrix
+y = df['Label']
 
 Xtrain,Xtest,ytrain,ytest = train_test_split(
     X,y,

@@ -1,0 +1,113 @@
+import os
+import requests
+import sklearn
+import torch
+import joblib
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import make_column_transformer
+from sklearn.compose import make_column_selector
+from sklearn.pipeline import make_pipeline
+from sklearn import metrics
+from sklearn.metrics import(
+    confusion_matrix, 
+    classification_report, 
+    recall_score, 
+    precision_score, 
+    accuracy_score, 
+    f1_score)
+from huggingface_hub import login,HfApi
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from huggingface_hub import login, HfApi, create_repo
+from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
+import mlflow
+
+# Setting the tracking URL for MLflow & defining name of the experiment
+#mlflow.set_tracking_uri("https://localhost:5000")
+if "GITHUB_WORKSPACE" in os.environ:
+    base_path = os.environ["GITHUB_WORKSPACE"]
+else:
+    base_path = os.getcwd()
+
+mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
+mlflow.set_experiment("Stock-Analyzer-Exp-2606")
+api = HfApi(token=os.getenv("HF_TOKEN"))
+
+# define the path to access the splitted datasets
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
+ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
+ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
+
+# Reads the split data
+Xtrain = pd.read_csv(Xtrain_path)
+Xtest = pd.read_csv(Xtest_path)
+ytrain = pd.read_csv(ytrain_path)
+ytest = pd.read_csv(ytest_path)
+
+rf_transformer = RandomForestClassifier(random_state=42)
+param_grid = {
+    'randomforestclassifier__n_estimators':[50,100,150],
+    'randomforestclassifier__max_depth':[6,7,8]}
+model_pipeline = make_pipeline(rf_transformer)
+with mlflow.start_run():
+    grid_search = RandomizedSearchCV(model_pipeline,
+                                     param_grid,
+                                     scoring='recall',
+                                     cv=5,
+                                     n_jobs=-1)
+    grid_search.fit(Xtrain,ytrain)
+    results = grid_search.cv_results_
+    for i in range(len(results['params'])):
+        param_set = results['params'][i]
+        mean_score = results['mean_test_score'][i]
+        std_score = results['std_test_score'][i]
+
+        with mlflow.start_run(nested=True):
+            mlflow.log_params(param_set)
+            mlflow.log_metric("mean_test_score",mean_score)
+            mlflow.log_metric("std_test_score",std_score)
+    mlflow.log_params(grid_search.best_params_)
+    best_model = grid_search.best_estimator_
+    classification_threshold = 0.45
+    y_pred_train_proba = best_model.predict_proba(Xtrain)[:,1]
+    y_pred_train = (y_pred_train_proba >= classification_threshold).astype(int)
+    # Best Model's predictions on testing data
+    y_pred_test_proba = best_model.predict_proba(Xtest)[:,1]
+    y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)
+    # Fetching classification reports for training and test datasets
+    train_report = classification_report(ytrain,y_pred_train,output_dict=True)
+    test_report = classification_report(ytest,y_pred_test,output_dict=True)
+    mlflow.log_metrics({
+        "train_accuracy": train_report['accuracy'],
+        "train_precision": train_report['1']['precision'],
+        "train_recall":train_report['1']['recall'],
+        "train_f1-score":train_report['1']['f1-score'],
+        "test_accuracy": test_report['accuracy'],
+        "test_precision": test_report['1']['precision'],
+        "test_recall":test_report['1']['recall'],
+        "test_f1-score":test_report['1']['f1-score']})
+    model_path = "best_model_for_stock_news_analyze_v1.joblib"
+    joblib.dump(best_model,model_path)
+    mlflow.log_artifact(model_path,artifact_path="model")
+    print(f"Model saved as artifact at: {model_path}")
+    # Uploading best model to Hugging Face
+    repo_id = "Lokeshnathy/Stock-market-news-Analyzer"
+    repo_type = "model"
+    try:
+        api.repo_info(repo_id=repo_id,repo_type=repo_type)
+        print(f"Space '{repo_id}' already exists. Using it.")
+    except RepositoryNotFoundError:
+        print(f"Space '{repo_id}' not found. Creating new space...")
+        create_repo(repo_id=repo_id,repo_type=repo_type,private=False)
+        print(f"Space '{repo_id}' created.")
+
+    # Uploading serialized model to HF Hub
+    api.upload_file(
+        path_or_fileobj="best_model_for_stock_news_analyze_v1.joblib",
+        path_in_repo="best_model_for_stock_news_analyze_v1.joblib",
+        repo_id = repo_id,
+        repo_type=repo_type)

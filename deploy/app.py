@@ -7,9 +7,9 @@ import joblib
 model_path = hf_hub_download(repo_id="Lokeshnathy/Stock-market-news-Analyzer",filename="stk_mrkt_ns_anlzr_v1.joblib")
 model = joblib.load(model_path)
 
-st.title("Stock Market- Sentiment Analysis")
+st.title("Stock Market News - Sentiment Finder")
 st.write("""
-This application forecasts stock market volatility and analyzes sentiment extracted from relevant news headlines. It is intended for internal use within the investment firm.
+This application predicts stock market volatility and analyzes sentiment extracted from relevant news headlines. It is intended for internal use within the investment firm.
 """)
 
 # News Headline
@@ -22,17 +22,17 @@ Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=10
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
 input_data = pd.DataFrame([{
-    'Date':Date,
-    'Open':Open,
-    'High':High,
-    'Low':Low,
-    'Close':Close,
-    'Volume':Volume,
-    'News':News}])
+    'News':News,
+    'Date': Date,
+    'Open': Open,
+    'High': High,
+    'Low': Low,
+    'Close': Close,
+    'Volumne': Volumne}])
 classification_threshold=0.45
 
 if st.button("Analyze"):
     prediction_proba=model.predict_proba(input_data)[-1,0,1]
     prediction=(prediction_proba>=classification_threshold).astype(int)
-    result="negative" if prediction == -1 elif result="neutral" if prediction==0 else "positive"
+    result="Negative" if prediction == -1 elif result="Neutral" if prediction==0 else "Positive"
     st.write(f"The provided news headline projecting a {result} sentiment.")
