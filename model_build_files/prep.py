@@ -34,7 +34,7 @@ ytest.to_csv("ytest.csv",index=False)
 
 dataset_related = ["Xtrain","Xtest","ytrain_csv","ytest.csv"]
 
-for file_path in data_related:
+for file_path in dataset_related:
     api.upload_file(
         path_or_fileobj=file_path,
         path_in_repo = file_path.split("/")[-1],
