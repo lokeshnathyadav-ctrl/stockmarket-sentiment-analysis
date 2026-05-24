@@ -29,7 +29,7 @@ Xtrain,Xtest,ytrain,ytest = train_test_split(
 
 np.save('Xtrain.npy',Xtrain)
 np.save('Xtest.npy',Xtest)
-ytrain.to_csv("ytain.csv",index=False)
+ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
 dataset_related = ["Xtrain.npy","Xtest.npy","ytrain.csv","ytest.csv"]
