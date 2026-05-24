@@ -7,8 +7,6 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.compose import make_column_transformer
-from sklearn.compose import make_column_selector
 from sklearn.pipeline import make_pipeline
 from sklearn import metrics
 from sklearn.metrics import(
@@ -54,7 +52,7 @@ param_grid = {
     'randomforestclassifier__max_depth':[6,7,8]}
 model_pipeline = make_pipeline(rf_transformer)
 with mlflow.start_run():
-    grid_search = RandomizedSearchCV(model_pipeline,
+    grid_search = GridSearchCV(model_pipeline,
                                      param_grid,
                                      scoring='recall',
                                      cv=5,
