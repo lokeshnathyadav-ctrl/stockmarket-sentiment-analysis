@@ -10,7 +10,7 @@ from huggingface_hub import login,HfApi
 from sentence_transformers import SentenceTransformer
 from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 
-api = HfApi(token=os.getenv("hf-api-key"))
+api = HfApi(token=os.getenv("HF_TOKEN"))
 DATASET_PATH = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/stock_news.csv"
 df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
@@ -27,12 +27,12 @@ Xtrain,Xtest,ytrain,ytest = train_test_split(
     test_size=0.15,
     random_state = 42)
 
-np.save('Xtrain',Xtrain)
-np.save('Xtest',Xtest)
+np.save('Xtrain.npy',Xtrain)
+np.save('Xtest.npy',Xtest)
 ytrain.to_csv("ytain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
-dataset_related = ["Xtrain","Xtest","ytrain_csv","ytest.csv"]
+dataset_related = ["Xtrain.npy","Xtest.npy","ytrain.csv","ytest.csv"]
 
 for file_path in dataset_related:
     api.upload_file(
