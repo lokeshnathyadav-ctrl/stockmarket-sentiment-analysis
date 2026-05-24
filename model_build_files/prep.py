@@ -27,12 +27,12 @@ Xtrain,Xtest,ytrain,ytest = train_test_split(
     test_size=0.15,
     random_state = 42)
 
-np.save('Xtrain.npy',Xtrain)
-np.save('Xtest.npy',Xtest)
+np.save('Xtrainmatrix',Xtrain)
+np.save('Xtestmatrix',Xtest)
 ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
-dataset_related = ["Xtrain.npy","Xtest.npy","ytrain.csv","ytest.csv"]
+dataset_related = ["Xtrainmatrix","Xtestmatrix","ytrain.csv","ytest.csv"]
 
 for file_path in dataset_related:
     api.upload_file(

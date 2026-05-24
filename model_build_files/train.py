@@ -36,8 +36,8 @@ mlflow.set_experiment("MLOps-Experiment-B27")
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # define the path to access the splitted datasets
-Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
-Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrainmatrix"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtestmatrix"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
