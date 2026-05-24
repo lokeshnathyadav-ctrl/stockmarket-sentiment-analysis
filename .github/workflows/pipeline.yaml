@@ -39,7 +39,7 @@ jobs:
 
         env:
 
-          HF_TOKE: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
         run: python model_build_files/data_registry.py
 
@@ -75,7 +75,7 @@ jobs:
 
         env:
 
-          HF_TOKE: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
         run: python model_build_files/prep.py
 
