@@ -42,8 +42,10 @@ ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 # Reads the split data
-Xtrain1 = np.load(Xtrain_path)
-Xtest2 = np.load(Xtest_path)
+loaded_Xtrain_arr = np.load(Xtrain_path)
+Xtrain = print(loaded_Xtrain_arr)
+loaded_Xtest_arr = np.load(Xtest_path)
+Xtest = print(loaded_Xtest_arr)
 ytrain = pd.read_csv(ytrain_path)
 ytest = pd.read_csv(ytest_path)
 
@@ -58,7 +60,7 @@ with mlflow.start_run():
                                      scoring='recall',
                                      cv=5,
                                      n_jobs=-1)
-    grid_search.fit(Xtrain1,ytrain)
+    grid_search.fit(Xtrain,ytrain)
     results = grid_search.cv_results_
     for i in range(len(results['params'])):
         param_set = results['params'][i]
@@ -72,10 +74,10 @@ with mlflow.start_run():
     mlflow.log_params(grid_search.best_params_)
     best_model = grid_search.best_estimator_
     classification_threshold = 0.45
-    y_pred_train_proba = best_model.predict_proba(Xtrain1)[:,1]
+    y_pred_train_proba = best_model.predict_proba(Xtrain)[:,1]
     y_pred_train = (y_pred_train_proba >= classification_threshold).astype(int)
     # Best Model's predictions on testing data
-    y_pred_test_proba = best_model.predict_proba(Xtest1)[:,1]
+    y_pred_test_proba = best_model.predict_proba(Xtest)[:,1]
     y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)
     # Fetching classification reports for training and test datasets
     train_report = classification_report(ytrain,y_pred_train,output_dict=True)
