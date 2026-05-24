@@ -1,6 +1,6 @@
 
 from huggingface_hub import login,HfApi,create_repo
-from huggingface_hub_utils import RepositoryNotFoundError,HfHubHTTPError
+from huggingface_hub.utils import RepositoryNotFoundError,HfHubHTTPError
 import os
 import requests
 
