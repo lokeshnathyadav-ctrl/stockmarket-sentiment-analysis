@@ -31,7 +31,8 @@ else:
     base_path = os.getcwd()
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("Stock-Analyzer-Exp-2606")
+mlflow.set_experiment("MLOps-Experiment-B27")
+
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # define the path to access the splitted datasets
