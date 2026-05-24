@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/378163279506818662/b66b9f0dd56b4a3ab9257cf112b241b0/artifacts
+end_time: 1775884642626
+entry_point_name: ''
+experiment_id: '378163279506818662'
+lifecycle_stage: active
+run_id: b66b9f0dd56b4a3ab9257cf112b241b0
+run_name: upset-crane-216
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775884637443
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

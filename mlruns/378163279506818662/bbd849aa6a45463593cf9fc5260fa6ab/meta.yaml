@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/378163279506818662/bbd849aa6a45463593cf9fc5260fa6ab/artifacts
+end_time: 1775884310774
+entry_point_name: ''
+experiment_id: '378163279506818662'
+lifecycle_stage: active
+run_id: bbd849aa6a45463593cf9fc5260fa6ab
+run_name: merciful-trout-125
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775884211844
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

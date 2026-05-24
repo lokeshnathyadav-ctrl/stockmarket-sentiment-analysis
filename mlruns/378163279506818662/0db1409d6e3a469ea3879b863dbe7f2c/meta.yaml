@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/378163279506818662/0db1409d6e3a469ea3879b863dbe7f2c/artifacts
+end_time: 1775884622631
+entry_point_name: ''
+experiment_id: '378163279506818662'
+lifecycle_stage: active
+run_id: 0db1409d6e3a469ea3879b863dbe7f2c
+run_name: gentle-moth-0
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775884616707
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

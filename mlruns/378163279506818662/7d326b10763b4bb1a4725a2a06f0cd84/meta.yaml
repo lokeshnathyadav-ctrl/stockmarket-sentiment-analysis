@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/378163279506818662/7d326b10763b4bb1a4725a2a06f0cd84/artifacts
+end_time: 1775884600302
+entry_point_name: ''
+experiment_id: '378163279506818662'
+lifecycle_stage: active
+run_id: 7d326b10763b4bb1a4725a2a06f0cd84
+run_name: whimsical-pig-516
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1775884594719
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV
