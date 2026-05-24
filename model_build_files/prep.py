@@ -33,7 +33,7 @@ np.save('Xtestarr',Xtest)
 ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
-dataset_related = ["Xtrainarr","Xtestarr","ytrain.csv","ytest.csv"]
+dataset_related = ["Xtrainarr.npy","Xtestarr.npy","ytrain.csv","ytest.csv"]
 
 for file_path in dataset_related:
     api.upload_file(
