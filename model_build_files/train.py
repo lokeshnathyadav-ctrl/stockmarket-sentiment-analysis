@@ -37,14 +37,14 @@ mlflow.set_experiment("Stock-Analyzer-Exp-2606")
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 # define the path to access the splitted datasets
-Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
-Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 # Reads the split data
-Xtrain = pd.read_csv(Xtrain_path)
-Xtest = pd.read_csv(Xtest_path)
+Xtrain = np.load(Xtrain_path)
+Xtest = np.load(Xtest_path)
 ytrain = pd.read_csv(ytrain_path)
 ytest = pd.read_csv(ytest_path)
 
