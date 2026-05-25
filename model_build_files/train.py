@@ -35,7 +35,7 @@ mlflow.set_experiment("MLOps-Experiment-B27")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
-Xtest_path = hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
