@@ -28,8 +28,8 @@ Xtrain,Xtest,ytrain,ytest = train_test_split(
     random_state = 42)
 
 
-Xtrain.to_csv("Xtrain",index=False)
-Xtest.to_csv("Xtest",index=False)
+Xtrain.to_csv("Xtrain.csv",index=False)
+Xtest.to_csv("Xtest.csv",index=False)
 ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
