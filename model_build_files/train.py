@@ -34,12 +34,14 @@ mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("MLOps-Experiment-B27")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
+Xtest_path = hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 # Reads the split data
-Xtrain = np.load('hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrainarr.npy')
-Xtest = np.load('hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtestarr.npy')
+Xtrain = pd.read_csv(Xtrain_path)
+Xtest = pd.read_csv(Xtest_path)
 ytrain = pd.read_csv(ytrain_path)
 ytest = pd.read_csv(ytest_path)
 
