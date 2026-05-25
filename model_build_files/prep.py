@@ -18,7 +18,7 @@ print("Dataset loaded successfully.")
 transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 embedding_matrix = transformer_model.encode(df['News'],device=device,show_progress_bar=False)
-emnedding_df = pd.DataFrame(embedding_matrix)
+embedding_df = pd.DataFrame(embedding_matrix)
 X = embedding_df
 y = df['Label']
 
