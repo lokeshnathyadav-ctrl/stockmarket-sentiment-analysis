@@ -6,3 +6,5 @@ scikit-learn==1.6.0
 mlflow==3.0.1
 torch==2.10.0
 sentence-transformers==5.3.0
+pyngrok==7.2.12
+mlflow==3.0.1
