@@ -24,16 +24,17 @@ from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 
 # Setting the tracking URL for MLflow & defining name of the experiment
-#mlflow.set_tracking_uri("https://localhost:5000")
-if "GITHUB_WORKSPACE" in os.environ:
-    base_path = os.environ["GITHUB_WORKSPACE"]
-else:
-    base_path = os.getcwd()
+mlflow.set_tracking_uri("https://localhost:5000")
+#if "GITHUB_WORKSPACE" in os.environ:
+#    base_path = os.environ["GITHUB_WORKSPACE"]
+#else:
+#    base_path = os.getcwd()
 
-mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
+#mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("MLOps-Experiment-B27")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
+
 Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
 Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
@@ -76,8 +77,8 @@ with mlflow.start_run():
     y_pred_test_proba = best_model.predict_proba(Xtest)[:,1]
     y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)
     # Fetching classification reports for training and test datasets
-    train_report = classification_report(ytrain,y_pred_train,output_dict=True)
-    test_report = classification_report(ytest,y_pred_test,output_dict=True)
+    train_report = classification_report(ytrain,y_pred_train,output_dict=True,zero_division=1.0)
+    test_report = classification_report(ytest,y_pred_test,output_dict=True,zero_division=1.0)
     mlflow.log_metrics({
         "train_accuracy": train_report['accuracy'],
         "train_precision": train_report['1']['precision'],
