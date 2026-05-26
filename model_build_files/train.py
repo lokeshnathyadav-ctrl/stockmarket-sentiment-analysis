@@ -24,17 +24,17 @@ from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 
 # Setting the tracking URL for MLflow & defining name of the experiment
-mlflow.set_tracking_uri("https://localhost:5000")
-#if "GITHUB_WORKSPACE" in os.environ:
-#    base_path = os.environ["GITHUB_WORKSPACE"]
-#else:
-#    base_path = os.getcwd()
+#mlflow.set_tracking_uri("https://localhost:5000")
+if "GITHUB_WORKSPACE" in os.environ:
+    base_path = os.environ["GITHUB_WORKSPACE"]
+else:
+    base_path = os.getcwd()
 
-#mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
+mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("MLOps-Experiment-B27")
 
-#api = HfApi(token=os.getenv("HF_TOKEN"))
-api = HfApi()
+api = HfApi(token=os.getenv("HF_TOKEN"))
+#api = HfApi()
 Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
 Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
