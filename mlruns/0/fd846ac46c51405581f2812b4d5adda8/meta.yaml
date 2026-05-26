@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/fd846ac46c51405581f2812b4d5adda8/artifacts
+end_time: 1779765572381
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: fd846ac46c51405581f2812b4d5adda8
+run_name: peaceful-quail-986
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779765572236
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

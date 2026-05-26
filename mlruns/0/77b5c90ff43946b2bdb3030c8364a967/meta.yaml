@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/77b5c90ff43946b2bdb3030c8364a967/artifacts
+end_time: 1779765572211
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 77b5c90ff43946b2bdb3030c8364a967
+run_name: rambunctious-ram-988
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779765572049
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

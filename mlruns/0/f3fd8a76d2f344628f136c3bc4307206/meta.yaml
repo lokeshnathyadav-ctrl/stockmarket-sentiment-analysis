@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/0/f3fd8a76d2f344628f136c3bc4307206/artifacts
+end_time: 1779765572706
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f3fd8a76d2f344628f136c3bc4307206
+run_name: sneaky-croc-351
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779765572583
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV
