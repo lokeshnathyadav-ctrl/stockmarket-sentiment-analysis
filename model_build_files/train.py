@@ -33,8 +33,8 @@ mlflow.set_tracking_uri("https://localhost:5000")
 #mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("MLOps-Experiment-B27")
 
-api = HfApi(token=os.getenv("HF_TOKEN"))
-
+#api = HfApi(token=os.getenv("HF_TOKEN"))
+api = HfApi()
 Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
 Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
