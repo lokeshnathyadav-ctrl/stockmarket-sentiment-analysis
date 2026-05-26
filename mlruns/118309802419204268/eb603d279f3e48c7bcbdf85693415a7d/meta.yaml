@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/118309802419204268/eb603d279f3e48c7bcbdf85693415a7d/artifacts
+end_time: 1779774553938
+entry_point_name: ''
+experiment_id: '118309802419204268'
+lifecycle_stage: active
+run_id: eb603d279f3e48c7bcbdf85693415a7d
+run_name: calm-snake-583
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1779774548699
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

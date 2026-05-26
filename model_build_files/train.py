@@ -81,13 +81,20 @@ with mlflow.start_run():
     test_report = classification_report(ytest,y_pred_test,output_dict=True,zero_division=1.0)
     mlflow.log_metrics({
         "train_accuracy": train_report['accuracy'],
-        "train_precision": train_report['1']['precision'],
-        "train_recall":train_report['1']['recall'],
-        "train_f1-score":train_report['1']['f1-score'],
         "test_accuracy": test_report['accuracy'],
-        "test_precision": test_report['1']['precision'],
-        "test_recall":test_report['1']['recall'],
-        "test_f1-score":test_report['1']['f1-score']})
+        "train_precision": train_report['-1']['precision'],
+        "train_precision": train_report['0']['precision'],
+        "test_precision": test_report['-1']['precision'],
+        "test_precision": test_report['0']['precision'],
+        "train_recall":train_report['-1']['recall'],
+        "train_recall":train_report['0']['recall'],
+        "test_recall":test_report['-1']['recall'],
+        "test_recall":test_report['0']['recall'],
+        "train_f1":train_report['-1']['f1-score'],
+        "train_f1":train_report['0']['f1-score'],
+        "test_f1":test_report['1']['f1-score'],
+        "test_f1":test_report['1']['f1-score']
+    })
     model_path = "best_model_for_stock_news_analyze_v1.joblib"
     joblib.dump(best_model,model_path)
     mlflow.log_artifact(model_path,artifact_path="model")
