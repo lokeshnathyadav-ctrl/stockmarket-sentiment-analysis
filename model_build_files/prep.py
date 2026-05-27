@@ -18,8 +18,8 @@ print("Dataset loaded successfully.")
 transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 embedding_matrix = transformer_model.encode(df['News'],device=device,show_progress_bar=False)
-embedding_df = pd.DataFrame(embedding_matrix)
-X = embedding_df
+#embedding_df = pd.DataFrame(embedding_matrix)
+X = embedding_matrix
 y = df['Label']
 
 Xtrain,Xtest,ytrain,ytest = train_test_split(
@@ -28,12 +28,12 @@ Xtrain,Xtest,ytrain,ytest = train_test_split(
     random_state = 42)
 
 
-Xtrain.to_csv("Xtrain.csv",index=False)
-Xtest.to_csv("Xtest.csv",index=False)
+np.save("Xtrain",Xtrain)
+np.save("Xtest",Xtest)
 ytrain.to_csv("ytrain.csv",index=False)
 ytest.to_csv("ytest.csv",index=False)
 
-dataset_related = ["Xtrain.csv","Xtest.csv","ytrain.csv","ytest.csv"]
+dataset_related = ["Xtrain.npy","Xtest.npy","ytrain.csv","ytest.csv"]
 
 for file_path in dataset_related:
     api.upload_file(

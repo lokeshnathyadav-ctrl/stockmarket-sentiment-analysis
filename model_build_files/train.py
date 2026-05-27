@@ -35,14 +35,14 @@ mlflow.set_experiment("MLOps-Experiment-B27")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 #api = HfApi()
-Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.csv"
-Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.csv"
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 # Reads the split data
-Xtrain = pd.read_csv(Xtrain_path)
-Xtest = pd.read_csv(Xtest_path)
+Xtrain = np.load(Xtrain_path)
+Xtest = np.load(Xtest_path)
 ytrain = pd.read_csv(ytrain_path)
 ytest = pd.read_csv(ytest_path)
 
@@ -73,27 +73,32 @@ with mlflow.start_run():
     classification_threshold = 0.45
     y_pred_train_proba = best_model.predict_proba(Xtrain)[:,1]
     y_pred_train = (y_pred_train_proba >= classification_threshold).astype(int)
-    # Best Model's predictions on testing data
     y_pred_test_proba = best_model.predict_proba(Xtest)[:,1]
     y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)
-    # Fetching classification reports for training and test datasets
-    train_report = classification_report(ytrain,y_pred_train,output_dict=True,zero_division=1.0)
+    
+    test_accuracy = accuracy_score(ytest,y_pred_test)
+    test_f1 = f1_score(ytest,y_pred_test,average='weighted')
+    test_recall = recall_score(ytest,y_pred_test,average ='weighted')
+#    train_report = classification_report(ytrain,y_pred_train,output_dict=True,zero_division=1.0)
     test_report = classification_report(ytest,y_pred_test,output_dict=True,zero_division=1.0)
     mlflow.log_metrics({
-        "train_accuracy": train_report['accuracy'],
-        "test_accuracy": test_report['accuracy'],
-        "train_precision": train_report['-1']['precision'],
-        "train_precision": train_report['0']['precision'],
-        "test_precision": test_report['-1']['precision'],
-        "test_precision": test_report['0']['precision'],
-        "train_recall":train_report['-1']['recall'],
-        "train_recall":train_report['0']['recall'],
-        "test_recall":test_report['-1']['recall'],
-        "test_recall":test_report['0']['recall'],
-        "train_f1":train_report['-1']['f1-score'],
-        "train_f1":train_report['0']['f1-score'],
-        "test_f1":test_report['1']['f1-score'],
-        "test_f1":test_report['1']['f1-score']
+        "accuracy":test_accuracy,
+        "f1":test_f1,
+        "recall":test_recall,
+#        "train_accuracy": train_report['accuracy'],
+#        "test_accuracy": test_report['accuracy'],
+#       "train_precision": train_report['-1']['precision'],
+#        "train_precision": train_report['0']['precision'],
+        "test_precision_label_I": test_report['1']['precision'],
+        "test_precision_label_O": test_report['0']['precision'],
+#        "train_recall":train_report['-1']['recall'],
+#        "train_recall":train_report['0']['recall'],
+        "test_recall_label_I":test_report['1']['recall'],
+        "test_recall_label_O":test_report['0']['recall'],
+#        "train_f1":train_report['-1']['f1-score'],
+#        "train_f1":train_report['0']['f1-score'],
+#        "test_f1":test_report['1']['f1-score'],
+#        "test_f1":test_report['1']['f1-score']
     })
     model_path = "best_model_for_stock_news_analyze_v1.joblib"
     joblib.dump(best_model,model_path)
