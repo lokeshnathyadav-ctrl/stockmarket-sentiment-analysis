@@ -22,6 +22,8 @@ from sklearn.model_selection import GridSearchCV
 from huggingface_hub import login, HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
+import datasets
+from datasets import load_dataset
 
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
@@ -35,8 +37,8 @@ mlflow.set_experiment("MLOps-Experiment-B27")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 #api = HfApi()
-Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
-Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy?download=true"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy?download=true"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
