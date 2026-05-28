@@ -27,7 +27,7 @@ import datasets
 #import hf-xet
 #from sentence_transformers import SentenceTransformer
 #from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
-from transformers import cached_path
+#from transformers import cached_path
 import pickle
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
@@ -44,7 +44,7 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 repo_id = "Lokeshnathy/Stock-Market-News-Data"
 Xtrainpath = "Xtrain.pkl"
 url = f"https://huggingface.co/{repo_id}/resolve/main/{file_name}"
-cached_file_path = cached_path(url)
+cached_file_path = "~/.cache/huggingface"
 with open(cached_file_path, 'rb') as f:
     unpickler = pickle.Unpickler(f)
     Xtrain = unpickler.load()
