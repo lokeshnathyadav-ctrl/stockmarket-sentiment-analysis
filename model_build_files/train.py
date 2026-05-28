@@ -33,26 +33,27 @@ else:
     base_path = os.getcwd()
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("MLOps-Experiment-B27")
+mlflow.set_experiment("NLP-Experiment-B30")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 #api = HfApi()
-#Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
-#Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
-#ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
-#ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
+Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
+Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
+ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
+ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 #dataset = load_dataset("Lokeshnathy/Stock-Market-News-Data")
 
 
 # Reads the split data
-Xtrain = load_dataset('data/Xtrain.npy', as_supervised = False)
-Xtest = Load_dataset('data/Xtest.npy', as_supervised = False)
-ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
-ytest = load_dataset('data/ytest.csv', as_supervised = False)
-#Xtrain = np.load(Xtrain_path)
-#Xtest = np.load(Xtest_path)
-#ytrain = pd.read_csv(ytrain_path)
-#ytest = pd.read_csv(ytest_path)
+#Xtrain = load_dataset('data/Xtrain.npy', as_supervised = False)
+#Xtest = Load_dataset('data/Xtest.npy', as_supervised = False)
+#ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
+#ytest = load_dataset('data/ytest.csv', as_supervised = False)
+
+Xtrain = np.load(Xtrain_path)
+Xtest = np.load(Xtest_path)
+ytrain = pd.read_csv(ytrain_path)
+ytest = pd.read_csv(ytest_path)
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
     'randomforestclassifier__n_estimators':[50,100,150],
