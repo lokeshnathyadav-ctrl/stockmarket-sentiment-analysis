@@ -37,9 +37,9 @@ mlflow.set_experiment("NLP-Experiment-B30")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 #api = HfApi()
-Xtrain_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtrain.npy",as_supervised=False,streaming=True)
-Xtest_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtest.npy",as_supervised=False,streaming=True)
-
+#Xtrain_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtrain.npy",as_supervised=False,streaming=True)
+#Xtest_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtest.npy",as_supervised=False,streaming=True)
+embedding_matrix = load_dataset("Lokeshnathy/Stock-Market-News-Data")
 #Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy"
 #Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
 ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
@@ -48,8 +48,10 @@ ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 
 # Reads the split data
-Xtrain = Xtrain_path('Xtrain')
-Xtest = Xtest_path('Xtest')
+Xtrain = embedding_matrix['Xtrain']
+Xtest = embedding_matrix['Xtest']
+#Xtrain = Xtrain_path('Xtrain')
+#Xtest = Xtest_path('Xtest')
 #ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
 #ytest = load_dataset('data/ytest.csv', as_supervised = False)
 
