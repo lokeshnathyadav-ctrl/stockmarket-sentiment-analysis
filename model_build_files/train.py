@@ -45,7 +45,7 @@ repo_id = "Lokeshnathy/Stock-Market-News-Data"
 Xtrainpath = "Xtrain.pkl"
 url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
 cached_file_path = "~/.cache/huggingface"
-os.environ['HF_HUB_CACHE'] = cache_file_path
+os.environ['HF_HUB_CACHE'] = cached_file_path
 with open(cached_file_path, 'rb') as f:
     unpickler = pickle.Unpickler(f)
     Xtrain = unpickler.load()
