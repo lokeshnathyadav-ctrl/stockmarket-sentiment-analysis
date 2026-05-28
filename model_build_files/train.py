@@ -24,7 +24,11 @@ from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 import datasets
 #from datasets import load_dataset
-import hf-xet
+#import hf-xet
+#from sentence_transformers import SentenceTransformer
+#from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
+from transformers import cached_path
+import pickle
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
 if "GITHUB_WORKSPACE" in os.environ:
@@ -36,14 +40,24 @@ mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("NLP-Experiment-B30")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
+
+repo_id = "Lokeshnathy/Stock-Market-News-Data"
+Xtrainpath = "Xtrain.pkl"
+url = f"https://huggingface.co/{repo_id}/resolve/main/{file_name}"
+cached_file_path = cached_path(url)
+with open(cached_file_path, 'rb') as f:
+    unpickler = pickle.Unpickler(f)
+    Xtrain = unpickler.load()
+
+Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
 #api = HfApi()
 #Xtrain_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtrain.npy",as_supervised=False,streaming=True)
 #Xtest_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtest.npy",as_supervised=False,streaming=True)
 #embedding_matrix = load_dataset("Lokeshnathy/Stock-Market-News-Data")
 #Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain"
 #Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest"
-ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
-ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
+#ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
+#ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 
 
 
@@ -55,10 +69,8 @@ ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
 #ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
 #ytest = load_dataset('data/ytest.csv', as_supervised = False)
 
-Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy")
-Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
-ytrain = pd.read_csv(ytrain_path)
-ytest = pd.read_csv(ytest_path)
+ytrain = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv")
+ytest = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv")
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
     'randomforestclassifier__n_estimators':[50,100,150],
