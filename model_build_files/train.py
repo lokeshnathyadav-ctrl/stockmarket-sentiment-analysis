@@ -46,9 +46,9 @@ dataset = load_dataset("Lokeshnathy/Stock-Market-News-Data")
 
 # Reads the split data
 Xtrain = dataset('Xtrain.npy')
-Xtest = np.load(Xtest_path)
-ytrain = pd.read_csv(ytrain_path)
-ytest = pd.read_csv(ytest_path)
+Xtest = dataset('Xtest.npy')
+ytrain = dataset('ytrain.csv')
+ytest = dataset('ytest.csv')
 
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
