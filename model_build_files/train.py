@@ -23,8 +23,8 @@ from huggingface_hub import login, HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 import datasets
-from datasets import load_dataset
-
+#from datasets import load_dataset
+import hf-xet
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
 if "GITHUB_WORKSPACE" in os.environ:
