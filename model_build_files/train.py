@@ -41,14 +41,14 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 #Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy"
 #ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
 #ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
-dataset = load_dataset("Lokeshnathy/Stock-Market-News-Data")
+#dataset = load_dataset("Lokeshnathy/Stock-Market-News-Data")
 
 
 # Reads the split data
-Xtrain = dataset('Xtrain.npy')
-Xtest = dataset('Xtest.npy')
-ytrain = dataset('ytrain.csv')
-ytest = dataset('ytest.csv')
+Xtrain = load_dataset('Xtrain.npy', as_supervised = False)
+Xtest = Load_dataset('Xtest.npy', as_supervised = False)
+ytrain = load_dataset('ytrain.csv', as_supervised = False)
+ytest = load_dataset('ytest.csv', as_supervised = False)
 
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
