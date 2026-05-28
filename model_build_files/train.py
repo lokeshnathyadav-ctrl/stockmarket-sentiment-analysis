@@ -45,10 +45,10 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 
 
 # Reads the split data
-Xtrain = load_dataset('Lokeshnathy/Stock-Market-News-Data/Xtrain.npy', as_supervised = False)
-Xtest = Load_dataset('Lokeshnathy/Stock-Market-News-Data/Xtest.npy', as_supervised = False)
-ytrain = load_dataset('Lokeshnathy/Stock-Market-News-Data/ytrain.csv', as_supervised = False)
-ytest = load_dataset('Lokeshnathy/Stock-Market-News-Data/ytest.csv', as_supervised = False)
+Xtrain = load_dataset('data/Xtrain.npy', as_supervised = False)
+Xtest = Load_dataset('data/Xtest.npy', as_supervised = False)
+ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
+ytest = load_dataset('data/ytest.csv', as_supervised = False)
 #Xtrain = np.load(Xtrain_path)
 #Xtest = np.load(Xtest_path)
 #ytrain = pd.read_csv(ytrain_path)
