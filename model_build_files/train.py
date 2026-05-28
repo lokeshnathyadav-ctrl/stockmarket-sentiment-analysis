@@ -43,7 +43,7 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 
 repo_id = "Lokeshnathy/Stock-Market-News-Data"
 Xtrainpath = "Xtrain.pkl"
-url = f"https://huggingface.co/{repo_id}/resolve/main/{file_name}"
+url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
 cached_file_path = "~/.cache/huggingface"
 with open(cached_file_path, 'rb') as f:
     unpickler = pickle.Unpickler(f)
