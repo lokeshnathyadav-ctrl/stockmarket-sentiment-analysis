@@ -47,13 +47,14 @@ Xtrainpath = "Xtrain.pkl"
 url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
 
 #cached_file_path = 'C://Users/B LOKESHNATH YADAV/.cache/huggingface/hub/'
+
+cached_path = pathlib.Path('C:/Users/B LOKESHNATH YADAV/.cache/huggingface/hub')
 cached_file_path = cached_path(url)
-#cached_file_path = pathlib.Path('C:/Users/B LOKESHNATH YADAV/.cache/huggingface/hub')
 #cached_file_path = r"C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
 
 #cached_file_path = "C:/Users/B LOKESHNATH YADAV/.cache/huggingface/xet"
 
-#os.environ['HF_HUB_CACHE'] = cached_file_path
+os.environ['HF_HUB_CACHE'] = cached_file_path
 with open(cached_file_path, 'rb') as f:
     unpickler = pickle.Unpickler(f)
     Xtrain = unpickler.load()
