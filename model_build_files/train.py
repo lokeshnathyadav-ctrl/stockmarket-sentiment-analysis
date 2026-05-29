@@ -44,7 +44,7 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 repo_id = "Lokeshnathy/Stock-Market-News-Data"
 Xtrainpath = "Xtrain.pkl"
 url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
-cached_file_path = r"C:\Users\B LOKESHNATH YADAV\.cache\huggingface\xet"
+cached_file_path = "C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
 #cached_file_path = r"C://Users//B LOKESHNATH YADAV//.cache//huggingface//xet"
 #cached_file_path = r"C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
 
