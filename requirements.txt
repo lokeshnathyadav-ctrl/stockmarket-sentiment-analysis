@@ -13,3 +13,4 @@ mlflow==3.0.1
 hf-xet
 requests
 transformers
+pathlib

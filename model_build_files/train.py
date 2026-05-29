@@ -29,6 +29,7 @@ import datasets
 #from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 #from transformers import cached_path
 import pickle
+import pathlib
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
 if "GITHUB_WORKSPACE" in os.environ:
@@ -44,8 +45,9 @@ api = HfApi(token=os.getenv("HF_TOKEN"))
 repo_id = "Lokeshnathy/Stock-Market-News-Data"
 Xtrainpath = "Xtrain.pkl"
 url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
-cached_file_path = 'C://Users/B LOKESHNATH YADAV/.cache/huggingface/hub/'
-#cached_file_path = r"C://Users//B LOKESHNATH YADAV//.cache//huggingface//xet"
+
+#cached_file_path = 'C://Users/B LOKESHNATH YADAV/.cache/huggingface/hub/'
+cached_file_path = pathlib.Path('C:/Users/B LOKESHNATH YADAV/.cache/huggingface/hub')
 #cached_file_path = r"C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
 
 #cached_file_path = "C:/Users/B LOKESHNATH YADAV/.cache/huggingface/xet"
