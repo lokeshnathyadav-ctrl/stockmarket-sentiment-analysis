@@ -41,20 +41,20 @@ mlflow.set_experiment("NLP-Experiment-B30")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
-#repo_id = "Lokeshnathy/Stock-Market-News-Data"
-#Xtrainpath = "Xtrain.pkl"
-#url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
-#cached_file_path = "C:\Users\B LOKESHNATH YADAV\.cache\huggingface\xet"
+repo_id = "Lokeshnathy/Stock-Market-News-Data"
+Xtrainpath = "Xtrain.pkl"
+url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
+cached_file_path = "C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet"
 #cached_file_path = r"C://Users//B LOKESHNATH YADAV//.cache//huggingface//xet"
 #cached_file_path = r"C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
 
 #cached_file_path = "C:/Users/B LOKESHNATH YADAV/.cache/huggingface/xet"
 
-#os.environ['HF_HUB_CACHE'] = cached_file_path
-#with open(cached_file_path, 'rb') as f:
-#    unpickler = pickle.Unpickler(f)
-#    Xtrain = unpickler.load()
-Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
+os.environ['HF_HUB_CACHE'] = cached_file_path
+with open(cached_file_path, 'rb') as f:
+    unpickler = pickle.Unpickler(f)
+    Xtrain = unpickler.load()
+#Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
 Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
 #api = HfApi()
 #Xtrain_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtrain.npy",as_supervised=False,streaming=True)
