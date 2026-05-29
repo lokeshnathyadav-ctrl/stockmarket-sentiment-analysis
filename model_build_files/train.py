@@ -23,13 +23,7 @@ from huggingface_hub import login, HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 import datasets
-#from datasets import load_dataset
-#import hf-xet
-#from sentence_transformers import SentenceTransformer
-#from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
-#from transformers import cached_path
-import pickle
-import pathlib
+
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
 if "GITHUB_WORKSPACE" in os.environ:
@@ -39,48 +33,12 @@ else:
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("NLP-Experiment-B30")
-
 api = HfApi(token=os.getenv("HF_TOKEN"))
-
-repo_id = "Lokeshnathy/Stock-Market-News-Data"
-Xtrainpath = "Xtrain.pkl"
-url = f"https://huggingface.co/{repo_id}/resolve/main/{Xtrainpath}"
-
-#cached_file_path = 'C://Users/B LOKESHNATH YADAV/.cache/huggingface/hub/'
-
-cached_path = pathlib.Path('C:/Users/B LOKESHNATH YADAV/.cache/huggingface/hub')
-cached_file_path = cached_path(url)
-#cached_file_path = r"C://Users/B LOKESHNATH YADAV/.cache/huggingface/xet/"
-
-#cached_file_path = "C:/Users/B LOKESHNATH YADAV/.cache/huggingface/xet"
-
-os.environ['HF_HUB_CACHE'] = cached_file_path
-with open(cached_file_path, 'rb') as f:
-    unpickler = pickle.Unpickler(f)
-    Xtrain = unpickler.load()
-#Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
+Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy")
 Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
-#api = HfApi()
-#Xtrain_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtrain.npy",as_supervised=False,streaming=True)
-#Xtest_path = load_dataset("Lokeshnathy/Stock-Market-News-Data/Xtest.npy",as_supervised=False,streaming=True)
-#embedding_matrix = load_dataset("Lokeshnathy/Stock-Market-News-Data")
-#Xtrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain"
-#Xtest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest"
-#ytrain_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv"
-#ytest_path = "hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv"
-
-
-
-# Reads the split data
-#Xtrain = embedding_matrix['Xtrain']
-#Xtest = embedding_matrix['Xtest']
-#Xtrain = Xtrain_path('Xtrain')
-#Xtest = Xtest_path('Xtest')
-#ytrain = load_dataset('data/ytrain.csv', as_supervised = False)
-#ytest = load_dataset('data/ytest.csv', as_supervised = False)
-
 ytrain = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv")
 ytest = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv")
+
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
     'randomforestclassifier__n_estimators':[50,100,150],
@@ -98,7 +56,6 @@ with mlflow.start_run():
         param_set = results['params'][i]
         mean_score = results['mean_test_score'][i]
         std_score = results['std_test_score'][i]
-
         with mlflow.start_run(nested=True):
             mlflow.log_params(param_set)
             mlflow.log_metric("mean_test_score",mean_score)
@@ -109,31 +66,19 @@ with mlflow.start_run():
     y_pred_train_proba = best_model.predict_proba(Xtrain)[:,1]
     y_pred_train = (y_pred_train_proba >= classification_threshold).astype(int)
     y_pred_test_proba = best_model.predict_proba(Xtest)[:,1]
-    y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)
-    
+    y_pred_test = (y_pred_test_proba >= classification_threshold).astype(int)  
     test_accuracy = accuracy_score(ytest,y_pred_test)
     test_f1 = f1_score(ytest,y_pred_test,average='weighted')
     test_recall = recall_score(ytest,y_pred_test,average ='weighted')
-#    train_report = classification_report(ytrain,y_pred_train,output_dict=True,zero_division=1.0)
     test_report = classification_report(ytest,y_pred_test,output_dict=True,zero_division=1.0)
     mlflow.log_metrics({
         "accuracy":test_accuracy,
         "f1":test_f1,
         "recall":test_recall,
-#        "train_accuracy": train_report['accuracy'],
-#        "test_accuracy": test_report['accuracy'],
-#       "train_precision": train_report['-1']['precision'],
-#        "train_precision": train_report['0']['precision'],
         "test_precision_label_I": test_report['1']['precision'],
         "test_precision_label_O": test_report['0']['precision'],
-#        "train_recall":train_report['-1']['recall'],
-#        "train_recall":train_report['0']['recall'],
         "test_recall_label_I":test_report['1']['recall'],
         "test_recall_label_O":test_report['0']['recall'],
-#        "train_f1":train_report['-1']['f1-score'],
-#        "train_f1":train_report['0']['f1-score'],
-#        "test_f1":test_report['1']['f1-score'],
-#        "test_f1":test_report['1']['f1-score']
     })
     model_path = "best_model_for_stock_news_analyze_v1.joblib"
     joblib.dump(best_model,model_path)
