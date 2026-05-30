@@ -6,5 +6,5 @@ scikit-learn==1.6.0
 mlflow==3.0.1
 joblib==1.5.1
 torch
-sentence-transformers==5.3.0
+sentence-transformers
 mlflow==3.0.1
