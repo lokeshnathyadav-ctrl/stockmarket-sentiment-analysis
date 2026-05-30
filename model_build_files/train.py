@@ -33,7 +33,9 @@ else:
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("NLP-Experiment-B30")
+
 api = HfApi(token=os.getenv("HF_TOKEN"))
+
 Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy")
 Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
 ytrain = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv")
