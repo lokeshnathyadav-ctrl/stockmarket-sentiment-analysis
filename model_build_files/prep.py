@@ -17,7 +17,7 @@ df = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 
 # Day count calculation
-df['Date'] = pd.to_datetime(df['Date'],dayfirst=True)
+df['Date'] = pd.to_datetime(df['Date'])
 today = datetime.today()
 df['day_count'] = (df['Date'] - today).dt.days
 
