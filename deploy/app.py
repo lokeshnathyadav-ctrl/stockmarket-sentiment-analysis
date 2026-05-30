@@ -17,7 +17,8 @@ This application predicts stock market volatility and analyzes sentiment extract
 """)
 
 # News Headline
-Date = st.date_input("Select a date",value=("today",datetime.date),max_value="today")
+#today = datetime.today()
+Date = st.date_input("Select a date",value=(datetime.today()),max_value="today")
 Open = st.number_input("Beginning stock rate ($)",min_value=1.000000,max_value=100.000000,value=66.817497)
 High = st.number_input("Maximum stock rate ($)",min_value=1.000000,max_value=100.000000,value=67.062500)
 Low = st.number_input("Lowest stock rate ($)",min_value=1.000000,max_value=100.000000,value=65.862503)
