@@ -4,7 +4,9 @@ import pandas as pd
 from huggingface_hub import hf_hub_download
 import joblib
 import torch
+import numpy as np
 from datetime import datetime
+from sentence_transformers import SentenceTransformer
 
 #from transformers import AutoModelForYourTask
 #model = AutoModelForYourTask.from_pretrained('Stock-market-news-Analyzer
@@ -12,12 +14,10 @@ model_path = hf_hub_download(repo_id="Lokeshnathy/Stock-market-news-Analyzer",fi
 model = joblib.load(model_path)
 
 st.title("Stock Market News - Sentiment Finder")
-st.write("""
+st.subheader("""
 This application predicts stock market volatility and analyzes sentiment extracted from relevant news headlines. It is intended for internal use within the investment firm.
 """)
-
-# News Headline
-#today = datetime.today()
+# Collected app data
 Date = st.date_input("Select a date",value=(datetime.today()),max_value="today")
 Open = st.number_input("Beginning stock rate ($)",min_value=1.000000,max_value=100.000000,value=66.817497)
 High = st.number_input("Maximum stock rate ($)",min_value=1.000000,max_value=100.000000,value=67.062500)
@@ -26,14 +26,23 @@ Close = st.number_input("Closing stock rate ($)",min_value=1.000000,max_value=10
 Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=1000000000.0,value=100000000.0)
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
-input_data = pd.DataFrame([{
-    'News':News,
-    'Date': Date,
+# Preparing input data to the model 
+
+day_count = datetime.today() - Date    # Single entry field
+transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
+news_sample = pd.DataFrame(news_embedding)
+data1 = pd.DataFrame([{ 
+    'day_count' : day_count,
     'Open': Open,
     'High': High,
     'Low': Low,
     'Close': Close,
     'Volume': Volume}])
+
+input_data = data1.join(news_sample.rows, how = 'right')
+
 classification_threshold=0.45
 
 if st.button("Analyze"):
