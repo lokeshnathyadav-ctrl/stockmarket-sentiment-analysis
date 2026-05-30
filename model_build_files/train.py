@@ -34,7 +34,7 @@ mlflow.set_tracking_uri("https://localhost:5000")
 #    base_path = os.getcwd()
 
 #mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("NLP-Experiment-B31")
+mlflow.set_experiment("NLP-Experiment-X32")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
