@@ -1,0 +1,6 @@
+      - uses: huggingface/hub-sync@v0.1.0
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: Lokeshnathy/Stock-Market-News-Data
+          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_type: dataset
