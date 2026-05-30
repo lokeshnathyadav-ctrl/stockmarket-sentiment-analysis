@@ -17,7 +17,7 @@ Date = st.date_input("Select a date",value=("today",datetime.date),max_value="to
 Open = st.number_input("Beginning stock rate ($)",min_value=1.000000,max_value=100.000000,value=66.817497)
 High = st.number_input("Maximum stock rate ($)",min_value=1.000000,max_value=100.000000,value=67.062500)
 Low = st.number_input("Lowest stock rate ($)",min_value=1.000000,max_value=100.000000,value=65.862503)
-Close st.number_input("Closing stock rate ($)",min_value=1.000000,max_value=100.000000,value=64.805229)
+Close = st.number_input("Closing stock rate ($)",min_value=1.000000,max_value=100.000000,value=64.805229)
 Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=1000000000.0,value=100000000.0)
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
