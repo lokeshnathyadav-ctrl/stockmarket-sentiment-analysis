@@ -49,6 +49,9 @@ Xtest = pd.read_csv(Xtest_path)
 ytrain = pd.read_csv(ytrain_path)
 ytest = pd.read_csv(ytest_path)
 
+preprocessor = make_column_transformer(
+    (StandardScaler(),Xtrain.columns))
+
 gb_transformer = GradientBoostingClassifier(random_state=42)
 param_grid = {
     'gradientboostingclassifier__n_estimators':[50,100],
