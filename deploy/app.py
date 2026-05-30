@@ -33,7 +33,7 @@ input_data = pd.DataFrame([{
     'High': High,
     'Low': Low,
     'Close': Close,
-    'Volumne': Volumne}])
+    'Volume': Volume}])
 classification_threshold=0.45
 
 if st.button("Analyze"):
