@@ -23,6 +23,7 @@ from huggingface_hub import login, HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 import datasets
+import pathlib
 
 # Setting the tracking URL for MLflow & defining name of the experiment
 #mlflow.set_tracking_uri("https://localhost:5000")
@@ -35,11 +36,16 @@ mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
 mlflow.set_experiment("NLP-Experiment-B30")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
+# defining the path to access the splitted datasets
+Xtrain_path = pathlib.Path("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy")
+Xtest_path = pathlib.Path("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
+ytrain_path = pathlib.Path("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv")
+ytest_path = pathlib.Path("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv")
 
-Xtrain = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtrain.npy")
-Xtest = np.load("hf://datasets/Lokeshnathy/Stock-Market-News-Data/Xtest.npy")
-ytrain = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytrain.csv")
-ytest = pd.read_csv("hf://datasets/Lokeshnathy/Stock-Market-News-Data/ytest.csv")
+Xtrain = np.load(Xtrain_path)
+Xtest = np.load(Xtest_path)
+ytrain = pd.read_csv(ytrain_path)
+ytest = pd.read_csv(ytest_path)
 
 rf_transformer = RandomForestClassifier(random_state=42)
 param_grid = {
