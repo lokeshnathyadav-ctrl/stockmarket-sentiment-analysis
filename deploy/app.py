@@ -43,7 +43,7 @@ input_data.columns = input_data.columns.astype(str)
 classification_threshold=0.45
 
 if st.button("Analyze"):
-    prediction_proba=model.predict_proba(input_data)[-1,0,1]
+    prediction_proba=model.predict_proba(input_data)[0,1]
     prediction=(prediction_proba>=classification_threshold).astype(int)
     result = "Negative" if prediction == -1 else "Neutral" if prediction == 0 else "Positive"
     st.suheader("Analysis is completed, find result below:")
