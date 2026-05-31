@@ -39,7 +39,7 @@ embeddings_list = news_embedding.tolist()
 # creating a new dataframe for embeddings feature names
 embedding_df = pd.DataFrame([embeddings_list],columns = [f'{i}' for i in range(len(embeddings_list))])
 input_data = pd.concat([input_data, embedding_df], axis=1)
-input_date.columns = input_data.columns.astype(str)
+input_data.columns = input_data.columns.astype(str)
 classification_threshold=0.45
 
 if st.button("Analyze"):
