@@ -46,5 +46,5 @@ if st.button("Analyze"):
     prediction_proba=model.predict_proba(input_data)[0,1]
     prediction=(prediction_proba>=classification_threshold).astype(int)
     result = "Negative" if prediction == -1 else "Neutral" if prediction == 0 else "Positive"
-    st.suheader("Analysis is completed, find result below:")
-    st.succes(f"The provided news headline projecting a **{result}** sentiment.")
+    st.subheader("Analysis is completed, find result below:")
+    st.success(f"The provided news headline projecting a **{result}** sentiment.")
