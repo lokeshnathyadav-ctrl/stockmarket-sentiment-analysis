@@ -25,7 +25,7 @@ Close = st.number_input("Closing stock rate ($)",min_value=1.000000,max_value=10
 Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=1000000000.0,value=100000000.0)
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
-data1 = pd.DataFrame([{
+input_data = pd.DataFrame([{
     'Open': Open,
     'High': High,
     'Low': Low,
@@ -34,8 +34,12 @@ data1 = pd.DataFrame([{
 transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
-news_sample = pd.DataFrame(news_embedding)
-input_data = data1.join(news_sample[::1], how = 'right')
+embeddings_list = news_embedding.to_list()
+
+# creating a new dataframe for embeddings feature names
+embedding_df = pd.DataFrame([embeddings_list],columns = [f'{i}' for i in range(len(embeddings_list))])
+input_data = pd.concat([input_data, embedding_df], axis=1)
+
 classification_threshold=0.45
 
 if st.button("Analyze"):
