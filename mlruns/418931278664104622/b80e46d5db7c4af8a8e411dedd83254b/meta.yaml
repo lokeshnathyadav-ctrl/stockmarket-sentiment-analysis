@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/418931278664104622/b80e46d5db7c4af8a8e411dedd83254b/artifacts
+end_time: 1780189517154
+entry_point_name: ''
+experiment_id: '418931278664104622'
+lifecycle_stage: active
+run_id: b80e46d5db7c4af8a8e411dedd83254b
+run_name: efficient-frog-628
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780189512195
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

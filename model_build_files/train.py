@@ -27,14 +27,13 @@ import datasets
 from datetime import datetime
 
 # Setting the tracking URL for MLflow & defining name of the experiment
-#mlflow.set_tracking_uri("https://localhost:5000")
 if "GITHUB_WORKSPACE" in os.environ:
     base_path = os.environ["GITHUB_WORKSPACE"]
 else:
     base_path = os.getcwd()
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("NLP-Experiment-B33")
+mlflow.set_experiment("NLP-Experiment-B43")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
@@ -54,7 +53,7 @@ preprocessor = make_column_transformer(
 
 gb_transformer = GradientBoostingClassifier(random_state=42)
 param_grid = {
-    'gradientboostingclassifier__n_estimators':[50,100],
+    'gradientboostingclassifier__n_estimators':[100,150],
     'gradientboostingclassifier__max_depth':[9,10,11],
     'gradientboostingclassifier__min_samples_leaf':[8,9,10],
     'gradientboostingclassifier__max_features':[0.9,1],
@@ -101,7 +100,7 @@ with mlflow.start_run():
     joblib.dump(best_model,model_path)
     mlflow.log_artifact(model_path,artifact_path="model")
     print(f"Model saved as artifact at: {model_path}")
-    # Uploading best model to Hugging Face
+
     repo_id = "Lokeshnathy/Stock-market-news-Analyzer"
     repo_type = "model"
     try:

@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/418931278664104622/8868068c7b5d43d8864f7358ffbb10d7/artifacts
+end_time: 1780189504343
+entry_point_name: ''
+experiment_id: '418931278664104622'
+lifecycle_stage: active
+run_id: 8868068c7b5d43d8864f7358ffbb10d7
+run_name: kindly-colt-634
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780189499285
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV

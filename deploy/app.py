@@ -8,8 +8,6 @@ import numpy as np
 from datetime import datetime
 from sentence_transformers import SentenceTransformer
 
-#from transformers import AutoModelForYourTask
-#model = AutoModelForYourTask.from_pretrained('Stock-market-news-Analyzer
 model_path = hf_hub_download(repo_id="Lokeshnathy/Stock-market-news-Analyzer",filename="best_model_for_stock_news_analyze_v1.joblib")       
 model = joblib.load(model_path)
 
@@ -17,8 +15,9 @@ st.title("Stock Market News - Sentiment Finder")
 st.subheader("""
 This application predicts stock market volatility and analyzes sentiment extracted from relevant news headlines. It is intended for internal use within the investment firm.
 """)
+
 # Collected app data
-Date = st.date_input("Select a date",value=(datetime.today()),max_value="today")
+Date = st.date_input("Select a date",value=(datetime.today()))
 Open = st.number_input("Beginning stock rate ($)",min_value=1.000000,max_value=100.000000,value=66.817497)
 High = st.number_input("Maximum stock rate ($)",min_value=1.000000,max_value=100.000000,value=67.062500)
 Low = st.number_input("Lowest stock rate ($)",min_value=1.000000,max_value=100.000000,value=65.862503)
@@ -27,12 +26,9 @@ Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=10
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
 # Preparing input data to the model 
-
-day_count = datetime.today() - Date    # Single entry field
-transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
-news_sample = pd.DataFrame(news_embedding)
+Date = pd.to_datetime(Date)
+today = datetime.today()
+day_count = (Date - today)dt.days
 data1 = pd.DataFrame([{ 
     'day_count' : day_count,
     'Open': Open,
@@ -40,9 +36,11 @@ data1 = pd.DataFrame([{
     'Low': Low,
     'Close': Close,
     'Volume': Volume}])
-
+transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
+news_sample = pd.DataFrame(news_embedding)
 input_data = data1.join(news_sample.rows, how = 'right')
-
 classification_threshold=0.45
 
 if st.button("Analyze"):

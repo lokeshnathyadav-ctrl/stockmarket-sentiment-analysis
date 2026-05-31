@@ -19,7 +19,7 @@ print("Dataset loaded successfully.")
 # Day count calculation
 df['Date'] = pd.to_datetime(df['Date'])
 today = datetime.today()
-df['day_count'] = (df['Date'] - today).dt.days
+df['day_count'] = (today - df['Date'] ).dt.days
 
 # converting news column into embedding matrix
 transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
