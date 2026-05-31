@@ -35,7 +35,7 @@ transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2'
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
 news_sample = pd.DataFrame(news_embedding)
-input_data = data1.join(news_sample.rows, how = 'right')
+input_data = data1.join(news_sample[::1], how = 'right')
 classification_threshold=0.45
 
 if st.button("Analyze"):
