@@ -32,7 +32,7 @@ else:
     base_path = os.getcwd()
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("NLP-Experiment-B53")
+mlflow.set_experiment("NLP-Experiment-B103")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
@@ -52,10 +52,9 @@ preprocessor = make_column_transformer(
 
 gb_transformer = GradientBoostingClassifier(random_state=42)
 param_grid = {
-    'gradientboostingclassifier__n_estimators':[100,150],
-    'gradientboostingclassifier__max_depth':[9,10,11],
-    'gradientboostingclassifier__min_samples_leaf':[8,9,10],
-    'gradientboostingclassifier__max_features':[0.9,1],
+    'gradientboostingclassifier__n_estimators':[150,175,200],
+    'gradientboostingclassifier__max_depth':(3,11),
+    'gradientboostingclassifier__min_samples_leaf':[0.5,0.6],
     'gradientboostingclassifier__learning_rate':[0.05,0.1],
 }
 model_pipeline = make_pipeline(preprocessor,gb_transformer)

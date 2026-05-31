@@ -25,12 +25,7 @@ Close = st.number_input("Closing stock rate ($)",min_value=1.000000,max_value=10
 Volume = st.number_input("Shares traded today",min_value=10000000.0,max_value=1000000000.0,value=100000000.0)
 News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline here...")
 
-# Preparing input data to the model 
-Date = pd.to_datetime(Date)
-today = datetime.today()
-day_count = (Date - today).dt.days
-data1 = pd.DataFrame([{ 
-    'day_count' : day_count,
+data1 = pd.DataFrame([{
     'Open': Open,
     'High': High,
     'Low': Low,

@@ -23,6 +23,7 @@ df.join(embedding_df,how='right')
 # To split data into train test splits
 X = df.drop(['News','Date','Label'],axis=1)
 y = df['Label']
+X.columns = X.columns.astype(str)
 Xtrain,Xtest,ytrain,ytest = train_test_split(
     X,y,
     test_size=0.15,

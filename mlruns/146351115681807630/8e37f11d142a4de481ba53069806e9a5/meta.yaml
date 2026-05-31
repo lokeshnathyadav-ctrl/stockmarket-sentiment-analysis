@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/146351115681807630/8e37f11d142a4de481ba53069806e9a5/artifacts
+end_time: 1780224880520
+entry_point_name: ''
+experiment_id: '146351115681807630'
+lifecycle_stage: active
+run_id: 8e37f11d142a4de481ba53069806e9a5
+run_name: stately-skunk-344
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780224861422
+status: 4
+tags: []
+user_id: B LOKESHNATH YADAV

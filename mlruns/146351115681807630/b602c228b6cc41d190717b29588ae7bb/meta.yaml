@@ -1,0 +1,14 @@
+artifact_uri: mlflow-artifacts:/146351115681807630/b602c228b6cc41d190717b29588ae7bb/artifacts
+end_time: 1780225107879
+entry_point_name: ''
+experiment_id: '146351115681807630'
+lifecycle_stage: active
+run_id: b602c228b6cc41d190717b29588ae7bb
+run_name: secretive-boar-14
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1780225102323
+status: 3
+tags: []
+user_id: B LOKESHNATH YADAV
