@@ -1,13 +1,12 @@
-
+# Important libraries
 from huggingface_hub import login,HfApi,create_repo
 from huggingface_hub.utils import RepositoryNotFoundError,HfHubHTTPError
 import os
 import requests
-
+# Login credentials and hugging face repository
 repo_id = "Lokeshnathy/Stock-Market-News-Data"              
 repo_type = "dataset"
 api=HfApi(token=os.getenv("HF_TOKEN"))
-
 try:
     api.repo_info(repo_id=repo_id, repo_type=repo_type)
     print(f"Space '{repo_id}' already exists. Using it.")

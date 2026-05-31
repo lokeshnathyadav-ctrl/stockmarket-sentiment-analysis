@@ -24,7 +24,6 @@ from huggingface_hub import login, HfApi, create_repo
 from huggingface_hub.utils import RepositoryNotFoundError, HfHubHTTPError
 import mlflow
 import datasets
-from datetime import datetime
 
 # Setting the tracking URL for MLflow & defining name of the experiment
 if "GITHUB_WORKSPACE" in os.environ:
@@ -33,7 +32,7 @@ else:
     base_path = os.getcwd()
 
 mlflow.set_tracking_uri(f"file:{os.path.join(base_path,'mlruns')}")
-mlflow.set_experiment("NLP-Experiment-B43")
+mlflow.set_experiment("NLP-Experiment-B53")
 
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
