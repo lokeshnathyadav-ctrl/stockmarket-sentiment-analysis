@@ -34,12 +34,12 @@ input_data = pd.DataFrame([{
 transformer_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 news_embedding = transformer_model.encode(News,device=device,show_progress_bar=False)
-embeddings_list = news_embedding.to_list()
+embeddings_list = news_embedding.tolist()
 
 # creating a new dataframe for embeddings feature names
 embedding_df = pd.DataFrame([embeddings_list],columns = [f'{i}' for i in range(len(embeddings_list))])
 input_data = pd.concat([input_data, embedding_df], axis=1)
-
+input_date.columns = input_data.columns.astype(str)
 classification_threshold=0.45
 
 if st.button("Analyze"):
