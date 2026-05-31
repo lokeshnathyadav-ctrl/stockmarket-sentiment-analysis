@@ -28,7 +28,7 @@ News = st.text_area("Headline",placeholder="Type/ copy & paste the news headline
 # Preparing input data to the model 
 Date = pd.to_datetime(Date)
 today = datetime.today()
-day_count = (Date - today)dt.days
+day_count = (Date - today).dt.days
 data1 = pd.DataFrame([{ 
     'day_count' : day_count,
     'Open': Open,
